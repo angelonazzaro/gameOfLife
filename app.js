@@ -1,3 +1,16 @@
+function drawSingleCell(x, y, state = "dead") {
+	ctx.beginPath();
+	ctx.moveTo(x, y);
+	// This is going to be used to identify which cell the user has clicked on
+	// and if it needs to be alive or dead.
+	cellMap.set(x + '_' + y, { x: x, y: y, state: state });
+
+	ctx.fillRect(x, y, cellDimension, cellDimension);
+	ctx.strokeRect(x, y, cellDimension, cellDimension);
+
+	ctx.closePath();
+}
+
 function setCellStyle(fillStyle, strokeStyle) {
 	ctx.fillStyle = fillStyle;
 	ctx.strokeStyle = strokeStyle;
@@ -22,36 +35,59 @@ function countAliveNeighbours(x, y) {
 	// One of the 8 cells that surround the cell in any direction
 	// Each neighbour is located at +- 17px in any direction from
 	// the current cell 
-	let liveNeighbours = 0;
+	let aliveNeighbours = 0;
 	
 	// Adding or subtracting from y, we move vertically
 	// Adding or subtracting from x, we move horizontally
 	// Combine these two and we move directionally
 	if (checkIfNeighbourIsAlive(x, y + cellDimension))
-		liveNeighbours++;
+		aliveNeighbours++;
 	
 	if (checkIfNeighbourIsAlive(x, y - cellDimension))
-		liveNeighbours++;
+		aliveNeighbours++;
 	
 	if (checkIfNeighbourIsAlive(x + cellDimension, y))
-		liveNeighbours++;
+		aliveNeighbours++;
 	
 	if (checkIfNeighbourIsAlive(x - cellDimension, y)) 
-		liveNeighbours++;
+		aliveNeighbours++;
 	
 	if (checkIfNeighbourIsAlive(x + cellDimension, y + cellDimension)) 
-		liveNeighbours++;
+		aliveNeighbours++;
 	
 	if (checkIfNeighbourIsAlive(x + cellDimension, y - cellDimension)) 
-		liveNeighbours++;
+		aliveNeighbours++;
 	
 	if (checkIfNeighbourIsAlive(x - cellDimension, y + cellDimension)) 
-		liveNeighbours++;
+		aliveNeighbours++;
 	
 	if (checkIfNeighbourIsAlive(x - cellDimension, y - cellDimension)) 
-		liveNeighbours++;
+		aliveNeighbours++;
 	
-	return liveNeighbours;
+	return aliveNeighbours;
+}
+
+function evolve(x, y) {
+	// Any live cell with fewer than two live neighbours dies, as if by underpopulation.
+	// Any live cell with two or three live neighbours lives on to the next generation.
+	// Any live cell with more than three live neighbours dies, as if by overpopulation.
+	// Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction
+	const aliveNeighbours = countAliveNeighbours(x, y);
+	const cell = cellMap.get(x + "_" + y); 
+
+	if (cell.state === "alive") {
+		if (aliveNeighbours === 2 || aliveNeighbours === 3) return;
+
+		cell.state = "dead";
+		setCellStyle(deadFillStyle, deadStrokeStyle);
+	} else {
+		if (aliveNeighbours !== 3) return; 
+
+		cell.state = "alive";
+		setCellStyle(aliveFillStyle, aliveStrokeStyle);
+	}
+
+	drawSingleCell(x, y, cell.state);
 }
 
 // Get computed style for css variables
@@ -106,22 +142,12 @@ for (let i = 0; i < rows; i++) {
 		x = j * cellDimension;
 		y = i * cellDimension;
 
-		ctx.beginPath();
-		ctx.moveTo(x, y);
-		// This is going to be used to identify which cell the user has clicked on
-		// and if it needs to be alive or dead.
-		cellMap.set(x + "_" + y, {"x": x, "y": y, "state": "dead"});
-
-		ctx.fillRect(x, y, cellDimension, cellDimension);
-		ctx.strokeRect(x, y, cellDimension, cellDimension);
-
-		ctx.closePath();
+		drawSingleCell(x, y);
 	}
 }
 
 
 canvas.addEventListener("click", function (e) {
-	const rect = canvas.getBoundingClientRect();
 	// Get the x and y position of the cursor inside the canvas
 	const x = e.offsetX;
 	const y = e.offsetY;
@@ -142,15 +168,28 @@ canvas.addEventListener("click", function (e) {
 		data.state = "dead";
 	}	
 
-	ctx.beginPath();
-	ctx.moveTo(originalX, originalY);
-
-	cellMap.set(originalX + '_' + originalY, data);
-
-	ctx.fillRect(originalX, originalY, cellDimension, cellDimension);
-	ctx.strokeRect(originalX, originalY, cellDimension, cellDimension);
-
-	ctx.closePath();
-
+	drawSingleCell(originalX, originalY, data.state);
 	console.log(countAliveNeighbours(originalX, originalY));
+});
+
+
+const playButton = document.getElementById("play-btn");
+let playing = false, interval = null;
+
+document.querySelector("button").addEventListener("click", function () {
+	
+	if (playing) {
+		clearInterval(interval);
+	} else {
+		interval = setInterval(function () {
+			console.log('calling');
+			cellMap.forEach((value, key) => {
+				key = key.split("_");
+				evolve(parseInt(key[0]), parseInt(key[1]));
+			})
+		}, 750);
+	}
+
+	playing = !playing;
+		
 });
