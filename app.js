@@ -1,4 +1,4 @@
-function setCellStyle(ctx, fillStyle, strokeStyle) {
+function setCellStyle(fillStyle, strokeStyle) {
 	ctx.fillStyle = fillStyle;
 	ctx.strokeStyle = strokeStyle;
 }
@@ -7,6 +7,51 @@ function calculateDimensionDifference(dim, cdim) {
 	const difference = dim / cdim; 
 	// Returns the decimal part of the coefficient
 	return difference - Math.floor(difference);
+}
+
+function checkIfNeighbourIsAlive(x, y) {
+	let neighbour = null; 
+
+	if ((neighbour = cellMap.get(x + "_" + y)))
+		return neighbour.state === "alive";
+	
+	return false;
+}
+
+function countAliveNeighbours(x, y) {
+	// One of the 8 cells that surround the cell in any direction
+	// Each neighbour is located at +- 17px in any direction from
+	// the current cell 
+	let liveNeighbours = 0;
+	
+	// Adding or subtracting from y, we move vertically
+	// Adding or subtracting from x, we move horizontally
+	// Combine these two and we move directionally
+	if (checkIfNeighbourIsAlive(x, y + cellDimension))
+		liveNeighbours++;
+	
+	if (checkIfNeighbourIsAlive(x, y - cellDimension))
+		liveNeighbours++;
+	
+	if (checkIfNeighbourIsAlive(x + cellDimension, y))
+		liveNeighbours++;
+	
+	if (checkIfNeighbourIsAlive(x - cellDimension, y)) 
+		liveNeighbours++;
+	
+	if (checkIfNeighbourIsAlive(x + cellDimension, y + cellDimension)) 
+		liveNeighbours++;
+	
+	if (checkIfNeighbourIsAlive(x + cellDimension, y - cellDimension)) 
+		liveNeighbours++;
+	
+	if (checkIfNeighbourIsAlive(x - cellDimension, y + cellDimension)) 
+		liveNeighbours++;
+	
+	if (checkIfNeighbourIsAlive(x - cellDimension, y - cellDimension)) 
+		liveNeighbours++;
+	
+	return liveNeighbours;
 }
 
 // Get computed style for css variables
@@ -45,7 +90,7 @@ const deadStrokeStyle = 'white';
 const aliveFillStyle = 'yellow';
 const aliveStrokeStyle = deadFillStyle;
 
-setCellStyle(ctx, deadFillStyle, deadStrokeStyle);
+setCellStyle(deadFillStyle, deadStrokeStyle);
 ctx.lineWidth = 1;
 
 // calculate columns  and rows
@@ -65,7 +110,7 @@ for (let i = 0; i < rows; i++) {
 		ctx.moveTo(x, y);
 		// This is going to be used to identify which cell the user has clicked on
 		// and if it needs to be alive or dead.
-		cellMap.set(x + "" + y, "dead");
+		cellMap.set(x + "_" + y, {"x": x, "y": y, "state": "dead"});
 
 		ctx.fillRect(x, y, cellDimension, cellDimension);
 		ctx.strokeRect(x, y, cellDimension, cellDimension);
@@ -87,23 +132,25 @@ canvas.addEventListener("click", function (e) {
 	const originalX = colNumber * cellDimension;
 	const originalY = rowNumber * cellDimension;
 
-	let cellState = cellMap.get(originalX + "" + originalY);
+	let data = cellMap.get(originalX + "_" + originalY);
 
-	if (cellState === "dead") {
-		setCellStyle(ctx, aliveFillStyle, aliveStrokeStyle);
-		cellState = "alive";
+	if (data.state === "dead") {
+		setCellStyle(aliveFillStyle, aliveStrokeStyle);
+		data.state = "alive";
 	} else {
-		setCellStyle(ctx, deadFillStyle, deadStrokeStyle);
-		cellState = "dead";
+		setCellStyle(deadFillStyle, deadStrokeStyle);
+		data.state = "dead";
 	}	
 
 	ctx.beginPath();
 	ctx.moveTo(originalX, originalY);
 
-	cellMap.set(originalX + '' + originalY, cellState);
+	cellMap.set(originalX + '_' + originalY, data);
 
 	ctx.fillRect(originalX, originalY, cellDimension, cellDimension);
 	ctx.strokeRect(originalX, originalY, cellDimension, cellDimension);
 
 	ctx.closePath();
+
+	console.log(countAliveNeighbours(originalX, originalY));
 });
