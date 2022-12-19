@@ -23,12 +23,12 @@ It is a cellular automaton devised by the British mathematician John Horton Conw
 You can read more about it at [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life). <br>
 
 ## Technologies
------
+
 It is written in **native** `Javascript` and uses `HTML5` and `CSS3` for the UI with no external library or framework. <br> 
 The UI is based on the [playfameoflife.com](http://playgameoflife.com/) website. <br>
 
 ## Contributing 
------
+
 If you want to contribute to this project, you can:  <br>
 -   Fork it: <https://github.com/sl1mSha4dey/gameOfLife/fork>
 -   Create your feature branch: `git checkout -b MY-NEW-FEATURE`
@@ -37,5 +37,5 @@ If you want to contribute to this project, you can:  <br>
 -   Submit a pull request, they are always appreciated!
 
 ## New Features or Improvements
------
+
 If you want to suggest a new feature or improvement, you can open a new issue and we can discuss it.
