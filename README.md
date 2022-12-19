@@ -7,7 +7,8 @@
         <img src="https://img.shields.io/github/languages/top/sl1mSha4dey/gameOfLife" alt="Top Language">
     </p>
     <p align="center">
-    <img src="https://img.shields.io/github/contributors/sl1mSha4dey/gameOfLife?color=brightgreen" alt="Contributors"/>
+        <img src="https://img.shields.io/badge/PRs-welcome-brightgreen" alt="PRs Welcome"/>
+        <img src="https://img.shields.io/github/contributors/sl1mSha4dey/gameOfLife?color=brightgreen" alt="Contributors"/>
     </p>
 
     
