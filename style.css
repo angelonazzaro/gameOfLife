@@ -55,14 +55,18 @@ main {
 }
 
 .controls {
+
+    width: 55%;
+
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
 }
 
 .button {
@@ -85,10 +89,23 @@ main {
 }
 
 #play-btn {
-     padding: 1.5rem 6rem;
-     margin-right: 1.75rem;
+     padding: calc(1.25rem  + 0.5vw) calc(5rem + 0.75vw);
+      margin-right: 1.25rem;
 }
 
 #clear-btn {
-    padding: 1rem 3rem;
+    padding: calc(1rem + 0.25vw) calc(2.5rem + 0.65vw);
+}
+
+@media only screen and (max-width: 773px) {
+    #play-btn {
+        margin-right: 0;
+        margin-bottom: 0.75rem;
+    }
+}
+
+@media only screen and (max-width: 440px) {
+    #play-btn {
+        padding: calc(0.5rem + 0.25vw) calc(5rem + 0.75vw);
+    }
 }
