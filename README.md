@@ -3,11 +3,11 @@
     This repo is my implementation of the Conway's Game of Life.
     <br><br>
     <p align="center">
-        <img src="https://img.shields.io/github/languages/code-size/sl1mSha4dey/gameOfLife?style=for-the-badge" alt="Code Size"/>
-        <img src="https://img.shields.io/github/languages/top/sl1mSha4dey/gameOfLife?style=for-the-badge" alt="Top Language">
+        <img src="https://img.shields.io/github/languages/code-size/sl1mSha4dey/gameOfLife" alt="Code Size"/>
+        <img src="https://img.shields.io/github/languages/top/sl1mSha4dey/gameOfLife" alt="Top Language">
     </p>
     <p align="center">
-    <img src="https://img.shields.io/github/contributors/sl1mSha4dey/gameOfLife?style=for-the-badge&color=brightgreen" alt="Contributors"/>
+    <img src="https://img.shields.io/github/contributors/sl1mSha4dey/gameOfLife?color=brightgreen" alt="Contributors"/>
     </p>
 
     
