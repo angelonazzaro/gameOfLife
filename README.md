@@ -22,7 +22,11 @@ It is a cellular automaton devised by the British mathematician John Horton Conw
 <br>
 <br>
 
-[demo](misc/demo.mp4)
+
+
+https://user-images.githubusercontent.com/58223071/208491909-3a6f77db-376b-4994-aea0-3ebe89ed6cbd.mp4
+
+
 
 You can read more about it at [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life). <br>
 
