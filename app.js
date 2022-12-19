@@ -8,6 +8,17 @@ function convertCoordinatesToNumber(coordinates, separator = '_') {
 	return [parseInt(x), parseInt(y)];
 }
 
+function drawBoard() {
+
+	setCellStyle(deadFillStyle, deadStrokeStyle);
+
+	for (let i = 0; i < rows; i++) {
+		for (let j = 0; j < cols; j++) {
+			drawSingleCell(j * cellDimension, i * cellDimension);
+		}
+	}
+}
+
 function drawSingleCell(x, y, state = 'dead') {
 	ctx.beginPath();
 	ctx.moveTo(x, y);
@@ -151,27 +162,14 @@ const deadStrokeStyle = 'white';
 const aliveFillStyle = 'yellow';
 const aliveStrokeStyle = deadFillStyle;
 
-setCellStyle(deadFillStyle, deadStrokeStyle);
 ctx.lineWidth = 0.5;
 
 // calculate columns  and rows
 const cols = canvasWidth / cellDimension;
 const rows = canvasHeight / cellDimension;
-// generate grid
-
 const cellMap = new Map();
-let x,
-	y,
-	nCell = 0;
-
-for (let i = 0; i < rows; i++) {
-	for (let j = 0; j < cols; j++) {
-		x = j * cellDimension;
-		y = i * cellDimension;
-
-		drawSingleCell(x, y);
-	}
-}
+// generate grid
+drawBoard();
 
 canvas.addEventListener('click', function (e) {
 	// Get the x and y position of the cursor inside the canvas
@@ -223,4 +221,14 @@ playButton.addEventListener('click', function () {
 	playButtonIcon.classList.add('fa-' + addClass);
 
 	playing = !playing;
+});
+
+const clearButton = document.getElementById('clear-btn');
+
+clearButton.addEventListener('click', function () {
+	
+	if (playing)
+		playButton.dispatchEvent(new Event('click'));
+	
+	drawBoard();
 });

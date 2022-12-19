@@ -65,10 +65,9 @@ main {
     justify-content: space-evenly;
 }
 
-#play-btn {
+.button {
     cursor: pointer;
 
-    padding: 1.5rem 6rem;
     font-family: monospace;
     font-size: calc(1.25rem + 0.2vw);
     border: none;
@@ -77,4 +76,19 @@ main {
     box-shadow: 2px 2px 3px hsla(0, 0%, 0%, 0.3);
     color: white;
     border-radius: 40px;
+
+    transition: all 250ms ease;
+}
+
+.button:hover {
+    transform: scale(1.1);
+}
+
+#play-btn {
+     padding: 1.5rem 6rem;
+     margin-right: 1.75rem;
+}
+
+#clear-btn {
+    padding: 1rem 3rem;
 }
