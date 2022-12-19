@@ -9,7 +9,22 @@ main, header {
 }
 
 header {
-    height: 10vh;
+    height: 8vh;
+    width: 100%;
+    background-color: #4285d7;
+}
+
+header > div {
+    color: #1b3262;
+    width: 98%;
+    height: 100%;
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    user-select: none;
 }
 
 main {
@@ -18,8 +33,8 @@ main {
 
 .grid-container {
     width: 100%;
-    height: 90%;
-    background-color: black;
+    height: 72vh;
+    background-color: #404040;
 
     display: flex;
     align-items: center;
@@ -30,17 +45,36 @@ main {
     background-color: red;
 }
 
-.cell {
-    
-    transition: background-color 200ms ease;
+.controls-container {
+    width: 100%;
+    height: 20vh;
+
+    background-color: #2e2d2d;
+
+    position: relative;
 }
 
-.live {
-    background-color: yellow;
-    border: 1px solid rgb(126, 126, 126);
+.controls {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
-.dead {
-    background-color: rgb(126, 126, 126);
-    border: 1px solid white;
+#play-btn {
+    cursor: pointer;
+
+    padding: 1.5rem 6rem;
+    font-family: monospace;
+    font-size: calc(1.25rem + 0.2vw);
+    border: none;
+
+    background-color: #2A4E97;
+    box-shadow: 2px 2px 3px hsla(0, 0%, 0%, 0.3);
+    color: white;
+    border-radius: 40px;
 }

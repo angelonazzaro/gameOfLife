@@ -6,21 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/bedafbbe2b.js"></script>
 
     <title>Game of Life</title>
 </head>
 <body>
     
     <header>
-
+        <div>
+            <h1>Game of Life</h1>
+        </div>
     </header>
 
     <main>
         <div class="grid-container">
             <canvas id="grid"></canvas>
         </div>
-        <div class="controls">
-            <button id="play-btn" class="play">Play</button>
+        <div class="controls-container">
+            <div class="controls">
+                 <button id="play-btn">
+                    <i class="fas fa-play"></i>
+                    <span>Play</span>
+                 </button>
+            </div>
         </div>
     </main>
 

@@ -152,7 +152,7 @@ const aliveFillStyle = 'yellow';
 const aliveStrokeStyle = deadFillStyle;
 
 setCellStyle(deadFillStyle, deadStrokeStyle);
-ctx.lineWidth = 1;
+ctx.lineWidth = 0.5;
 
 // calculate columns  and rows
 const cols = canvasWidth / cellDimension;
@@ -198,15 +198,29 @@ canvas.addEventListener('click', function (e) {
 });
 
 const playButton = document.getElementById('play-btn');
-let playing = false,
-	interval = null;
+const playButtonSpan = playButton.querySelector("span"); 
+const playButtonIcon = playButton.querySelector("i");
+
+let playing = false, interval = null;
 
 playButton.addEventListener('click', function () {
+	let addClass = 'pause', removeClass = 'play', text = 'Stop'; 
+
 	if (playing) {
 		clearInterval(interval);
+		addClass = 'play';
+		removeClass = 'pause';
+		text = 'Play'; 
 	} else {
-		interval = setInterval(() => evolve(), 750);
+		interval = setInterval(() => evolve(), 250);
+		addClass = 'pause';
+		removeClass = 'play';
+		text = 'Stop'; 
 	}
+
+	playButtonSpan.innerText = text;
+	playButtonIcon.classList.remove('fa-' + removeClass);
+	playButtonIcon.classList.add('fa-' + addClass);
 
 	playing = !playing;
 });
