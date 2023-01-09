@@ -33,7 +33,7 @@ You can read more about it at [Conway's Game of Life](https://en.wikipedia.org/w
 ## Technologies
 
 It is written in **native** `Javascript` and uses `HTML5` and `CSS3` for the UI with no external library or framework. <br> 
-The UI is based on the [playfameoflife.com](http://playgameoflife.com/) website. <br>
+The UI is based on the [playgameoflife.com](http://playgameoflife.com/) website. <br>
 
 ## Contributing 
 
